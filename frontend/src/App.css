@@ -1,0 +1,60 @@
+*{
+  margin: 0;
+  padding: 0; 
+  text-decoration: none;
+}
+
+body{
+  background-image: url('./assets/background0.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.menubar{
+  list-style: none;
+  box-sizing: border-box;
+  font-family: montserrat;
+  background: #faf9fb21;
+  height: 80px;
+  width: 100%;
+}
+
+label.logo{
+  color: white;
+  font-size: 35px;
+  line-height: 80px;
+  padding: 0 100px;
+  font-weight: bold;
+}
+
+nav ul{
+  float: right;
+  margin-right: 20px;
+}
+
+nav ul li{
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+}
+
+nav ul li a{
+  color: white;
+  font-size: 20px;
+}
+
+.footer{
+  width: 100%;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  padding: 5px;
+}
+
+.footer p{
+  font-family: montserrat;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
