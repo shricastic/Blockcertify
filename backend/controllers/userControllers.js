@@ -58,10 +58,11 @@ const loginUser = async (req, res) => {
 };
 
 const getCertificates = async(req, res) =>{
-  const{prn} = req.body;
+  const email = 'shwetali@gmail.com';
+  
 
   try {
-    const user = await User.findOne({prn});
+    const user = await User.findOne({email});
     
     if(!user){
       res.status(400).json({error:"User does not exist"});
