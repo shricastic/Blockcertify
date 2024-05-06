@@ -1,6 +1,7 @@
 const Admin = require('../models/Admin');
 const User = require('../models/User');
 const Certificate = require('../models/Certificate');
+const crypto = require('crypto');
 
 const adminRegister = async (req, res) => {
   const { username, email, password } = req.body;
@@ -88,30 +89,25 @@ const addUser = async (req, res) => {
 
 function generateHashCode(name, prn, course, date) {
     const combinedString = `${name}${prn}${course}${date}`;
+    const hash = crypto.createHash('sha256').update(combinedString).digest('hex');
 
-    let hash = 0;
-    for (let i = 0; i < combinedString.length; i++) {
-        const char = combinedString.charCodeAt(i);
-        hash = (hash << 5) - hash + char;
-        hash &= hash;
-    }
     return hash;
 }
 
-const addCertificate = async (req, res) =>{
-  const{name, prn, course, date, email} = req.body;
+const addCertificate = async (req, res) => {
+  const { name, prn, course, date, email } = req.body;
   
-  if(!name || !prn || !course || !date || !email){
-    res.status(400).json({error: "All fields are mendatory"});
+  if (!name || !prn || !course || !date || !email) {
+    res.status(400).json({ error: "All fields are mandatory" });
     return;
   }
 
   try {
-    const hashCode = generateHashCode(name, prn, course, date);
-    
-    let user = await User.findOne({email});
+    const hashCode = generateHashCode(name, prn, course, date); // Corrected variable name
 
-    if(!user){
+    let user = await User.findOne({ email });
+
+    if (!user) {
       user = new User({
         username: name,
         email,
@@ -121,12 +117,12 @@ const addCertificate = async (req, res) =>{
       });
     }
 
-     const newCertificate = new Certificate({
+    const newCertificate = new Certificate({
       name,
       prn,
       course,
-      date, 
-      hashCode
+      hashCode, // Corrected variable name
+      date
     });
 
     user.certificates.push(newCertificate);
@@ -135,7 +131,7 @@ const addCertificate = async (req, res) =>{
     res.status(200).json(newCertificate);
   } catch (error) {
     console.error(error);
-    res.status(500).json({error:"Internal Server Error"});    
+    res.status(500).json({ error: "Internal Server Error" });    
   }
 }
 
