@@ -18,7 +18,7 @@ app.use(session({
   saveUninitialized: false
 }))
 
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 
 app.use('/admin', adminRoutes);

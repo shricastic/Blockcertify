@@ -2,6 +2,8 @@ const Admin = require('../models/Admin');
 const User = require('../models/User');
 const Certificate = require('../models/Certificate');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const {JWT_SECRET} = process.env;
 
 const adminRegister = async (req, res) => {
   const { username, email, password } = req.body;
@@ -44,6 +46,12 @@ const adminLogin = async (req, res) => {
       res.status(400).json({ error: "Invalid email or password" });
       return;
     }
+
+    // const token = jwt.sign(
+    //   { userId: admin.email }, 
+    //   JWT_SECRET,
+    //   { expiresIn: '1h' }
+    // );
 
     console.log("Admin logged in successfully");
     res.status(200).json(admin);
@@ -103,8 +111,7 @@ const addCertificate = async (req, res) => {
   }
 
   try {
-    const hashCode = generateHashCode(name, prn, course, date); // Corrected variable name
-
+    const hashCode = generateHashCode(name, prn, course, date); 
     let user = await User.findOne({ email });
 
     if (!user) {
@@ -121,7 +128,7 @@ const addCertificate = async (req, res) => {
       name,
       prn,
       course,
-      hashCode, // Corrected variable name
+      hashCode,
       date
     });
 

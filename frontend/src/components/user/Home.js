@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Certificate from '../other/Certificate';
 import './home.css';
+
 
 const Home = () => {
   const [certificates, setCertificates] = useState([]);
@@ -33,8 +35,14 @@ const Home = () => {
           <ul>
             {certificates && certificates.map((certificate, index) => (
               <li key={index}>
-                Course: {certificate.course} 
-                <button>Download</button>
+                Course: {certificate.course}
+                  <Certificate
+                    name={certificate.name}
+                    prn={certificate.prn}
+                    course={certificate.course}
+                    date={certificate.date}
+                    hashCode={certificate._id}
+                  /> 
               </li>
             ))}
           </ul>
