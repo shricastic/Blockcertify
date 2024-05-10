@@ -1,14 +1,14 @@
 import React, { useRef, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
 
-const Certificate = ({ name, prn, course, date, hashCode }) => {
+const Certificate = ({ name, prn, course, date, hashCode, issuedBy }) => {
   const canvasRef = useRef(null);
 
   const handleDownload = () => {
     const canvas = canvasRef.current;
     const image = canvas.toDataURL('image/png');
     const pdf = new jsPDF('landscape');
-    pdf.addImage(image, 'PNG', 0, 0, 297, 210); // Adjust dimensions as needed
+    pdf.addImage(image, 'PNG', 0, 0, 297, 210); 
     pdf.save(`${name}_certificate.pdf`);
   };
 
@@ -17,7 +17,7 @@ const Certificate = ({ name, prn, course, date, hashCode }) => {
     const ctx = canvas.getContext('2d');
 
     const certificateImage = new Image();
-    certificateImage.src = require('../../assets/certificate.png');
+    certificateImage.src = require(`../../assets/${issuedBy}.png`);
     certificateImage.onload = () => {
       ctx.drawImage(certificateImage, 0, 0, canvas.width, canvas.height);
 
@@ -33,7 +33,7 @@ const Certificate = ({ name, prn, course, date, hashCode }) => {
       ctx.fillText(`${hashCode}`, 5, 580);
 
     };
-  }, [name, course, date, hashCode]);
+  }, [name, prn, course, date, hashCode, issuedBy]);
 
   return (
     <div>

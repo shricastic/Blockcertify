@@ -8,12 +8,17 @@ const AdminSchema = mongoose.Schema({
 
   email:{
     type: String,
-    required: [true, "please add the email"]
+    required: [true, "please add the email"],
+    unique: true
   },
 
   password:{
     type: String, 
     required: [true, "please enter the password"]
+  },
+
+  role:{
+    type: String
   }
 });
 

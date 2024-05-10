@@ -21,7 +21,7 @@ const adminRegister = async (req, res) => {
       return;
     }
 
-    admin = new Admin({ username, email, password });
+    admin = new Admin({ username, email, password, role: "admin" });
     await admin.save();
     
     res.status(201).json(admin);
@@ -47,19 +47,23 @@ const adminLogin = async (req, res) => {
       return;
     }
 
-    // const token = jwt.sign(
-    //   { userId: admin.email }, 
-    //   JWT_SECRET,
-    //   { expiresIn: '1h' }
-    // );
+    const token = jwt.sign(
+      { userId: admin.email, role: "admin" }, 
+      JWT_SECRET,
+      { expiresIn: '1h' }
+    );
 
     console.log("Admin logged in successfully");
-    res.status(200).json(admin);
+    res.status(200).json({token});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+const Dashboard = async(req, res) =>{
+  res.json({ message: "Welcome to the Admin Dashboard!" })
+}
 
 const addUser = async (req, res) => {
   const { username, email, prn, password } = req.body;
@@ -103,7 +107,7 @@ function generateHashCode(name, prn, course, date) {
 }
 
 const addCertificate = async (req, res) => {
-  const { name, prn, course, date, email } = req.body;
+  const { name, prn, course, date, email, issuedBy } = req.body;
   
   if (!name || !prn || !course || !date || !email) {
     res.status(400).json({ error: "All fields are mandatory" });
@@ -111,7 +115,7 @@ const addCertificate = async (req, res) => {
   }
 
   try {
-    const hashCode = generateHashCode(name, prn, course, date); 
+    const certificateHash = generateHashCode(name, prn, course, date); 
     let user = await User.findOne({ email });
 
     if (!user) {
@@ -128,8 +132,9 @@ const addCertificate = async (req, res) => {
       name,
       prn,
       course,
-      hashCode,
-      date
+      certificateHash,
+      date,
+      issuedBy
     });
 
     user.certificates.push(newCertificate);
@@ -177,5 +182,5 @@ const deleteUser = async(req, res) =>{
   }
 }
 
-module.exports = { adminLogin, adminRegister, addUser, addCertificate, getUsers, deleteUser };
+module.exports = { adminLogin, adminRegister, Dashboard, addUser, addCertificate, getUsers, deleteUser };
 

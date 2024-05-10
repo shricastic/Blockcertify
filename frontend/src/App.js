@@ -6,8 +6,9 @@ import Home from './components/user/Home';
 import Login from './components/user/Login';
 import Register from './components/user/Register';
 
-import Dashboard from './components/admin/Dashboard.js';
-import AdminLogin from './components/admin/AdminLogin.js';
+import Dashboard from './components/admin/Dashboard';
+import AdminLogin from './components/admin/AdminLogin';
+import Users from './components/admin/Users';
 import AddUser from './components/admin/AddUser';
 import AdminRegister from './components/admin/AdminRegister';
 import AddCertificate from './components/admin/AddCertificate';
@@ -46,19 +47,20 @@ function App(){
 
 
         <Routes>
-          //User Routes
+          
           <Route path="/Home" element={<Home />}> </Route>
           <Route path="/Login" element={<Login />}> </Route>
           <Route path="/Register" element={<Register />}> </Route>
           
-          //Admin Routes
-          <Route path="/Dashboard" element={<Dashboard />}></Route>  
-          <Route path="/AdminLogin" element={<AdminLogin />}></Route>
-          <Route path="/AdminRegister" element={<AdminRegister />}></Route>
+          
+          <Route exact path="/AdminLogin" element={<AdminLogin />}></Route>
+          <Route exact path="/AdminRegister" element={<AdminRegister />}></Route>
+          <Route exact path="/Dashboard" element={<Dashboard />}></Route>  
+          <Route exact path="/Users" element={<Users />}></Route>  
           <Route path="/AddCertificate" element={<AddCertificate />}></Route>
           <Route path="/AddUser" element={<AddUser />}> </Route>
 
-          //Other Routes
+         
           <Route path="/About" element={<About />}></Route>
 
         </Routes>

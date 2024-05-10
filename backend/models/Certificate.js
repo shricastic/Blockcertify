@@ -20,7 +20,11 @@ const CertificateSchema = mongoose.Schema({
   date:{
     type: String, 
     required: true
-  } 
+  },
+  issuedBy:{
+    type: String,
+    required: true
+  }
 });
 
 module.exports = mongoose.model("Certificate", CertificateSchema);

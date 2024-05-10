@@ -2,15 +2,31 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Certificate from '../other/Certificate';
 import './home.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
   const [certificates, setCertificates] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
+
     const fetchCertificates = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/user/home");
+        const token = localStorage.getItem('token'); 
+        if (!token) {
+          navigate('/Login', {replace: true});
+          throw new Error('Token not found');
+        }
+
+        const response = await axios.get("http://localhost:3001/user/home", {
+          headers: {
+            Authorization: `Bearer ${token}` 
+          }
+        });
+
+        console.log("this is whole response", response);
+
         console.log("Response from server: ", response.data);
         setCertificates(response.data);
       } catch (error) {
@@ -20,7 +36,15 @@ const Home = () => {
 
     fetchCertificates();
 
-  }, []);
+  }, [navigate]);
+
+  const handleLogOut = (event) =>{
+    localStorage.removeItem('token');
+
+    navigate('/Login', {replace: true});
+    
+    return null;
+  }
 
   console.log('Certificates:', certificates);
 
@@ -41,12 +65,14 @@ const Home = () => {
                     prn={certificate.prn}
                     course={certificate.course}
                     date={certificate.date}
-                    hashCode={certificate._id}
+                    hashCode={certificate.certificateHash}
+                    issuedBy={certificate.issuedBy}
                   /> 
               </li>
             ))}
           </ul>
         </div>
+        <button onClick={handleLogOut}>logout</button>
 
       </div>
     </>

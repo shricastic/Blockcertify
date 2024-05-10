@@ -1,4 +1,6 @@
 const User = require('../models/User.js');
+const jwt = require('jsonwebtoken');
+const {JWT_SECRET} = process.env;
 
 const registerUser = async (req, res) => {
   const { username, email, prn, password } = req.body;
@@ -49,8 +51,14 @@ const loginUser = async (req, res) => {
       return;
     }
 
+    const token = jwt.sign(
+      { userId: user.email, role: "user" }, 
+      JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
     console.log("User logged in successfully");
-    res.status(200).json(user);
+    res.status(200).json({token});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -58,8 +66,7 @@ const loginUser = async (req, res) => {
 };
 
 const getCertificates = async(req, res) =>{
-  const email = 'shwetali@gmail.com';
-  
+  const email = req.email;
 
   try {
     const user = await User.findOne({email});
