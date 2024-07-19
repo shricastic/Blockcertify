@@ -41,8 +41,10 @@ const Login = () =>{
     } catch (error) {
       console.error(error);
     }
+  }
 
-
+  const handleOnClick =  async(event) =>{
+    navigate('/Verify', {replace: true});
   }
 
   return(
@@ -55,6 +57,8 @@ const Login = () =>{
                 <input type="text" name="password" placeholder="Password" value={password} onChange={handleChange}/>
                 <button type="submit" value="Submit">Login</button>
             </form>
+
+            <button type="submit" onClick={handleOnClick}>Verify Certificate</button>
           </div>
 
         </div>

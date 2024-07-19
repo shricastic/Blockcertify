@@ -14,6 +14,8 @@ import AdminRegister from './components/admin/AdminRegister';
 import AddCertificate from './components/admin/AddCertificate';
 
 import About from './components/other/About';
+import Verify from './components/other/Verify';
+
 
 function App(){
   return(
@@ -62,6 +64,7 @@ function App(){
 
          
           <Route path="/About" element={<About />}></Route>
+          <Route path="/Verify" element={<Verify />}></Route>
 
         </Routes>
         

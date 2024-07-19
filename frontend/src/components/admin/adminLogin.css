@@ -46,3 +46,23 @@ button{
 h1{
   margin-bottom: 15px;
 }
+
+.verified{
+  margin-top: 10px;
+}
+
+.verified p{
+  margin-top: 10px;
+  font-weight: bold;
+  text-align: center;
+  font-size: larger;
+}
+
+.verified img{
+  margin-top: 20px;
+  width: 300px;
+  height: 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

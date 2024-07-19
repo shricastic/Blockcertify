@@ -116,6 +116,7 @@ const addCertificate = async (req, res) => {
 
   try {
     const certificateHash = generateHashCode(name, prn, course, date); 
+   
     let user = await User.findOne({ email });
 
     if (!user) {

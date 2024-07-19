@@ -83,6 +83,37 @@ const getCertificates = async(req, res) =>{
   }
 }
 
-module.exports = { registerUser, loginUser, getCertificates };
+const verify = async (req, res) => {
+  const { prn, hashcode } = req.body;
+
+  if (!prn || !hashcode) {
+    res.status(400).json({ error: "PRN and Hashcode are mandatory" });
+    return;
+  }
+
+  try {
+    const user = await User.findOne({ prn });
+
+    if (!user) {
+      res.status(404).json({ error: "User not found" });
+      return;
+    }
+
+    const certificate = user.certificates.find(cert => cert.certificateHash === hashcode);
+
+    if (!certificate) {
+      res.status(404).json({ error: "Certificate not found" });
+      return;
+    }
+
+    res.status(200).json({ message: "Certificate verified", certificate });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
+module.exports = { registerUser, loginUser, getCertificates, verify };
  
 
