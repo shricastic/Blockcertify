@@ -53,6 +53,7 @@ h1{
 
 .verified p{
   margin-top: 10px;
+  font-weight: bold;
   text-align: center;
   font-size: larger;
 }
