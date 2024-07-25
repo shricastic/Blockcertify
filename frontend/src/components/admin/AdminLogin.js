@@ -8,6 +8,8 @@ const AdminLogin = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const HostUrl = process.env.REACT_APP_HOST_URL;
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -35,7 +37,7 @@ const AdminLogin = () => {
         e.preventDefault();
 
         try {
-          const response = await axios.post('http://localhost:3001/admin/login', { email, password });
+          const response = await axios.post(`${HostUrl}/admin/login`, { email, password });
           const token = response.data.token;
           
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;

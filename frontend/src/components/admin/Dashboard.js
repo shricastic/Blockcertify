@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {  
   const navigate = useNavigate();
+  const HostUrl = process.env.REACT_APP_HOST_URL;
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -15,7 +17,7 @@ const Dashboard = () => {
           throw new Error('Token not found'); 
         }
 
-        const response = await axios.get("http://localhost:3001/admin/dashboard", {
+        const response = await axios.get(`${HostUrl}/admin/dashboard`, {
           headers: {
             Authorization: `Bearer ${token}` 
           }

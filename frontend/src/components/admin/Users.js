@@ -4,11 +4,13 @@ import '../user/home.css';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const HostUrl = process.env.REACT_APP_HOST_URL;
+
   
   useEffect(() => {
     const fetchUsers = async() =>{
         try {
-          const response = await axios.get("http://localhost:3001/admin/users");
+          const response = await axios.get(`${HostUrl}/admin/users`);
           setUsers(response.data);
         } catch (error) {
           console.error('Error fetching users', error); 

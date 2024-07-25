@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Home = () => {
   const [certificates, setCertificates] = useState([]);
   const navigate = useNavigate();
+  const HostUrl = process.env.REACT_APP_HOST_URL;
 
   useEffect(() => {
 
@@ -19,7 +20,7 @@ const Home = () => {
           throw new Error('Token not found');
         }
 
-        const response = await axios.get("http://localhost:3001/user/home", {
+        const response = await axios.get(`${HostUrl}/user/home`, {
           headers: {
             Authorization: `Bearer ${token}` 
           }

@@ -9,6 +9,8 @@ const Verify = () => {
   const [message, setMessage] = useState('');
   const [certificate, setCertificate] = useState('');
   const [isVerified, setIsVerified] = useState(false);
+  const HostUrl = process.env.REACT_APP_HOST_URL;
+
   
 
   const handleChange = (event) => {
@@ -24,7 +26,7 @@ const Verify = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/user/verify', { prn, hashcode });
+      const response = await axios.post(`${HostUrl}/user/verify`, { prn, hashcode });
       setMessage(response.data.message);
       setCertificate(response.data.certificate);
       setIsVerified(true);

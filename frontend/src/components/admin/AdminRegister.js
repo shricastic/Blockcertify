@@ -5,6 +5,7 @@ const AdminRegister = () =>{
   const[username, setUsername] = useState('');
   const[email, setEmail] = useState('');
   const[password, setPassword] = useState('');
+  const HostUrl = process.env.REACT_APP_HOST_URL;
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +28,7 @@ const AdminRegister = () =>{
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:3001/admin/register", {username, email, password});
+      await axios.post(`${HostUrl}/admin/register`, {username, email, password});
     } catch (error) {
       console.error(error);
     }

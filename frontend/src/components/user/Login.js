@@ -7,6 +7,7 @@ const Login = () =>{
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate =  useNavigate();
+  const HostUrl = process.env.REACT_APP_HOST_URL;
 
   const handleChange = (event) =>{
     const { name, value } = event.target;
@@ -27,7 +28,7 @@ const Login = () =>{
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/user/login', {email, password});
+      const response = await axios.post(`${HostUrl}/user/login`, {email, password});
       const token = response.data.token;
 
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;

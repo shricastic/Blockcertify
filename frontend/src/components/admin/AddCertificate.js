@@ -9,6 +9,7 @@ const AddCertificate = () => {
   const [date, setDate] = useState('');
   const [issuedBy, setIssuedBy] = useState('');
   const [csvFile, setCsvFile] = useState(null);
+  const HostUrl = process.env.REACT_APP_HOST_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +47,7 @@ const AddCertificate = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:3001/admin/add-cert", { name, email, prn, course, date, issuedBy });
+      await axios.post(`${HostUrl}/admin/add-cert`, { name, email, prn, course, date, issuedBy });
       console.log('Certificate added successfully');
     } catch (error) {
       console.error('Error adding certificate:', error);
@@ -111,7 +112,7 @@ const AddCertificate = () => {
 
       for (const record of certificateRecords) {
         const { name, email, prn, course, date, issuedBy } = record;
-        await axios.post("http://localhost:3001/admin/add-cert", { name, email, prn, course, date, issuedBy });
+        await axios.post(`${HostUrl}/admin/add-cert`, { name, email, prn, course, date, issuedBy });
       }
       console.log('Certificates added successfully');
     } catch (error) {
