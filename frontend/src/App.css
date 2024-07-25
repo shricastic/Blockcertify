@@ -6,7 +6,7 @@
 
 body{
   background-image: url('./assets/background0.jpg');
-  background-size:contain;
+  background-size:cover;
 }
 
 .menubar{
