@@ -13,7 +13,7 @@ const AddCertificate = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    switch (name) {
+    switch (name) { 
       case 'name':
         setName(value);
         break;
