@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node index.js",
+    "vercel-build": "echo 'No build step necessary for this project'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,11 +17,9 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
-    "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.3",
     "nodemon": "^3.1.0",
-    "path": "^0.12.7",
     "web3": "^4.9.0"
   }
 }
