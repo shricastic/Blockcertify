@@ -1,0 +1,16 @@
+.home-img{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    overflow: hidden;
+    padding: 20px;
+  }
+
+.home-img img{
+    height: 85%;
+    border-radius: 1.2rem;
+    box-shadow:10px 10px 8px #868585;
+
+}
+  
